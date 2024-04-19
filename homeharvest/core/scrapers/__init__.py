@@ -73,4 +73,5 @@ class Scraper:
         response = requests.post(url, headers=headers, data=payload)
 
         data = response.json()
+        print(data)
         return data["access_token"]
