@@ -70,7 +70,7 @@ class Scraper:
             "user-agent": "Realtor.com/24.20.4.149916 CFNetwork/1410.0.3 Darwin/22.6.0",
             "accept-language": "en-US,en;q=0.9",
         }
-        response = self.session.post(url, headers=headers, data=payload, proxies=self.session.proxies)
+        response = requests.post(url, headers=headers, data=payload, proxies=self.session.proxies)
         data = response.json()
         print(data)
         return data["access_token"]
