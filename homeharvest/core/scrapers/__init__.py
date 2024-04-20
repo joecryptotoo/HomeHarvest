@@ -4,7 +4,6 @@ import requests
 import uuid
 from .models import Property, ListingType, SiteName
 
-
 @dataclass
 class ScraperInput:
     location: str
@@ -16,7 +15,6 @@ class ScraperInput:
     date_from: str | None = None
     date_to: str | None = None
     foreclosure: bool | None = None
-
 
 class Scraper:
     def __init__(
@@ -51,16 +49,18 @@ class Scraper:
         self.date_to = scraper_input.date_to
         self.foreclosure = scraper_input.foreclosure
 
-    def search(self) -> list[Property]: ...
+    def search(self) -> list[Property]:
+        ...
 
     @staticmethod
-    def _parse_home(home) -> Property: ...
+    def _parse_home(home) -> Property:
+        ...
 
-    def handle_location(self): ...
+    def handle_location(self):
+        ...
 
     def get_access_token(self):
         url = "https://graph.realtor.com/auth/token"
-
         payload = f'{{"client_app_id":"rdc_mobile_native,24.20.4.149916,iphone","device_id":"{str(uuid.uuid4()).upper()}","grant_type":"device_mobile"}}'
         headers = {
             "Host": "graph.realtor.com",
@@ -70,8 +70,7 @@ class Scraper:
             "user-agent": "Realtor.com/24.20.4.149916 CFNetwork/1410.0.3 Darwin/22.6.0",
             "accept-language": "en-US,en;q=0.9",
         }
-        response = requests.post(url, headers=headers, data=payload)
-
+        response = self.session.post(url, headers=headers, data=payload, proxies=self.session.proxies)
         data = response.json()
         print(data)
         return data["access_token"]
