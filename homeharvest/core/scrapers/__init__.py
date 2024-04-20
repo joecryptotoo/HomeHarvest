@@ -27,12 +27,18 @@ class Scraper:
 
         if not session:
             self.session = requests.Session()
-            self.session.headers.update(
-                {
-                    "auth": f"Bearer {self.get_access_token()}",
-                    "apollographql-client-name": "com.move.Realtor-apollo-ios",
-                }
-            )
+            access_token_json = self.get_access_token()
+            print(access_token_json)
+
+            #check if access token is in json response
+            if "access_token" in access_token_json:
+                access_token=access_token_json["access_token"]
+                self.session.headers.update(
+                    {
+                       "auth": f"Bearer {access_token}",
+                       "apollographql-client-name": "com.move.Realtor-apollo-ios",
+                    }
+                )
         else:
             self.session = session
 
@@ -72,5 +78,4 @@ class Scraper:
         }
         response = requests.post(url, headers=headers, data=payload, proxies=self.session.proxies)
         data = response.json()
-        print(data)
-        return data["access_token"]
+        return data
