@@ -27,18 +27,18 @@ class Scraper:
 
         if not session:
             self.session = requests.Session()
-            access_token_json = self.get_access_token()
-            print(access_token_json)
+            #access_token_json = self.get_access_token()
+            #print(access_token_json)
 
             #check if access token is in json response
-            if "access_token" in access_token_json:
-                access_token=access_token_json["access_token"]
-                self.session.headers.update(
-                    {
-                       "auth": f"Bearer {access_token}",
-                       "apollographql-client-name": "com.move.Realtor-apollo-ios",
-                    }
-                )
+            #if "access_token" in access_token_json:
+            #    access_token=access_token_json["access_token"]
+            #    self.session.headers.update(
+            #        {
+            #           "auth": f"Bearer {access_token}",
+            #           "apollographql-client-name": "com.move.Realtor-apollo-ios",
+            #        }
+            #    )
         else:
             self.session = session
 
